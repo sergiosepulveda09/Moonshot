@@ -26,7 +26,9 @@ struct ContentView: View {
                             .font(.headline)
                         let getAstronauts: [String] = getAstronauts(mission: mission, astronauts: astronauts)
                         Text("\(showingCrew ? mission.formattedLaunchDate : "\(getAstronauts.minimalDescription)")")
+                            //ListFormatter.localizedString(byJoining: getAstronauts)
                             .animation(.linear(duration: 0.3))
+                        
                             
                     }
                 }
