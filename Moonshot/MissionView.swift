@@ -21,15 +21,19 @@ struct MissionView: View {
         GeometryReader { geometry in
             ScrollView(.vertical) {
                 VStack {
-                    Image(self.mission.image)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(maxWidth: geometry.size.width * 0.7)
-                        .padding(.top)
-                    Text(self.mission.formattedLaunchDate)
-                    Text(self.mission.description)
-                        .padding()
-                        .layoutPriority(1)
+                    VStack(spacing: 0) {
+                        Image(self.mission.image)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(maxWidth: geometry.size.width * 0.7)
+                            .padding(.top)
+                        Text(self.mission.formattedLaunchDate)
+                        Text(self.mission.description)
+                            .padding()
+                            .layoutPriority(1)
+                    }
+                    .accessibilityElement(children: .ignore)
+                    .accessibility(label: Text("\(mission.description) launched on \(mission.formattedLaunchDate)"))
                     ForEach(self.astronauts, id: \.role) { crewMember in
                         NavigationLink(destination: AstronautView(missions: missions, astronaut: crewMember.astronaut)) {
                             HStack {
@@ -52,13 +56,17 @@ struct MissionView: View {
                                 Spacer()
                             }
                             .padding(.horizontal)
+                            .accessibilityElement(children: .ignore)
+                            .accessibility(label: Text("\(crewMember.role): \(crewMember.astronaut.name)"))
                         }
                         .buttonStyle(PlainButtonStyle())
                     }
                     
+                    
                     Spacer(minLength: 25)
                     
                 }
+                
             }
         }
         .navigationBarTitle(Text(mission.displayName), displayMode: .inline)

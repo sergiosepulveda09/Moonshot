@@ -15,14 +15,19 @@ struct AstronautView: View {
         GeometryReader { geometry in
             ScrollView(.vertical) {
                 VStack {
-                    Image(self.astronaut.id)
-                        .resizable()
-                        .scaledToFit()
-                        .padding()
-                        .frame(width: geometry.size.width)
-                    Text(self.astronaut.description)
-                        .padding()
-                        .layoutPriority(1)
+                    VStack(spacing: 0) {
+                        Image(self.astronaut.id)
+                            .resizable()
+                            .scaledToFit()
+                            .padding()
+                            .frame(width: geometry.size.width)
+                        Text(self.astronaut.description)
+                            .padding()
+                            .layoutPriority(1)
+                    }
+                    .accessibilityElement(children: .ignore)
+                    .accessibility(label: Text("\(astronaut.name), \(astronaut.description)"))
+                    
                     //                    VStack(spacing: 10) {
                     //                        ForEach(missions) { mission in
                     //                            HStack {
@@ -42,6 +47,7 @@ struct AstronautView: View {
                             .font(.headline)
                             .padding(.horizontal)
                             .padding(.bottom, 10)
+                            .accessibility(hidden: true)
                         ForEach(missions) { mission in
                             HStack {
                                 Image(mission.image)
@@ -59,6 +65,8 @@ struct AstronautView: View {
 
                             }
                             .padding(.horizontal)
+                            .accessibilityElement(children: .ignore)
+                            .accessibility(label: Text("Crew member of mission: \(mission.displayName)"))
                         }
                     }
                 }

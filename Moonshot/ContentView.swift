@@ -32,6 +32,8 @@ struct ContentView: View {
                             
                     }
                 }
+                .accessibilityElement(children: .ignore)
+                .accessibility(label: Text("Mission: \(mission.displayName), \(showingCrew ? "Date launched: " + mission.formattedLaunchDate : "Crew:" + getAstronauts(mission: mission, astronauts: astronauts).minimalDescription)"))
             }
             .navigationBarTitle(Text("Moonshot"))
             .navigationBarItems(trailing: Button(showingCrew ? "Show Crews" : "Show Dates") {
